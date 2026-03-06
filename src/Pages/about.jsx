@@ -1,143 +1,155 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 // --- Styled Components ---
 
 const PageWrapper = styled.div`
-  background-color: #1a1a1a; /* Dark theme to match your app */
+  background-color: #1a1a1a;
   color: white;
-  padding: 40px 20px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+`;
+
+const Container = styled.div`
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 20px;
 `;
 
 const HeroSection = styled.section`
   text-align: center;
-  margin-bottom: 60px;
-  h1 { font-size: 3rem; color: tomato; margin-bottom: 10px; }
-  p { font-size: 1.2rem; color: #ccc; max-width: 800px; margin: 0 auto; }
+  padding: 100px 20px;
+  background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), 
+              url('https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1200&q=80');
+  background-size: cover;
+  background-position: center;
+  h1 { font-size: 3.5rem; color: tomato; margin-bottom: 20px; font-family: 'Pacifico', cursive; }
+  p { font-size: 1.2rem; color: #ddd; max-width: 800px; margin: 0 auto 80px; line-height: 1.6; }
 `;
 
-const WhyUsSection = styled.section`
+const SectionTitle = styled.h2`
+  font-size: 2.5rem;
+  text-align: center;
+  margin: 60px 0 40px;
+  color: white;
+  span { color: tomato; }
+`;
+
+const ServiceGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 30px;
   margin-bottom: 80px;
 `;
 
-const FeatureCard = styled.div`
+const ServiceCard = styled.div`
   background: #252525;
-  padding: 30px;
-  border-radius: 15px;
-  border-top: 4px solid tomato;
-  h3 { color: tomato; margin-bottom: 15px; }
-  p { line-height: 1.6; color: #eee; }
+  padding: 40px;
+  border-radius: 20px;
+  border-bottom: 5px solid ${props => props.color || "tomato"};
+  transition: 0.3s;
+  &:hover { transform: translateY(-10px); }
+  h3 { color: ${props => props.color || "tomato"}; margin-bottom: 15px; font-size: 1.5rem; }
+  p { color: #ccc; line-height: 1.6; font-size: 0.95rem; }
+  .icon { font-size: 3rem; margin-bottom: 20px; display: block; }
 `;
 
-const GallerySection = styled.section`
-  margin-top: 50px;
-  h2 { text-align: center; margin-bottom: 40px; font-size: 2.5rem; }
+const FeatureHighlight = styled.div`
+  display: flex;
+  align-items: center;
+  background: #252525;
+  border-radius: 25px;
+  padding: 40px;
+  margin-bottom: 40px;
+  gap: 40px;
+  flex-wrap: wrap;
+  img { width: 100%; max-width: 400px; border-radius: 15px; object-fit: cover; }
+  .content { flex: 1; h3 { color: tomato; font-size: 2rem; margin-bottom: 20px; } p { line-height: 1.8; color: #bbb; } }
 `;
 
-const PhotoGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
-`;
-
-const PhotoCard = styled.div`
-  position: relative;
-  overflow: hidden;
-  border-radius: 12px;
-  height: 250px;
-  
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-  }
-
-  &:hover img {
-    transform: scale(1.1);
-  }
-
-  .label {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.6);
-    padding: 10px;
-    text-align: center;
-    font-weight: bold;
-  }
-`;
-
-// --- About Component ---
+// --- Component ---
 
 export default function About() {
-    return (
-        <PageWrapper>
-            {/* 1. Persuasive Text Section */}
-            <HeroSection>
-                <h1>Why All in One?</h1>
-                <p>
-                    We aren't just an app; we are your daily companion. By integrating
-                    logistics, dining, and travel into one seamless interface, we save you
-                    time and money.
-                </p>
-            </HeroSection>
+  return (
+    <PageWrapper>
+      <HeroSection>
+        <h1>All in One Superapp</h1>
+        <p>
+          More than just a ride. We are your gateway to seamless living.
+          Whether you're commuting to work, craving local flavors, or
+          exploring new cities, we bring the world to your fingertips.
+        </p>
+      </HeroSection>
 
-            <WhyUsSection>
-                <FeatureCard>
-                    <h3>Unified Experience</h3>
-                    <p>Stop switching between five different apps. Book a ride, order dinner, and plan your next vacation all in one place with one single payment method.</p>
-                </FeatureCard>
-                <FeatureCard>
-                    <h3>Exclusive Savings</h3>
-                    <p>Our "All-Access" travel pass gives you discounts across all services. Use it for a ride to the airport and get 20% off your meal when you land.</p>
-                </FeatureCard>
-                <FeatureCard>
-                    <h3>24/7 Reliability</h3>
-                    <p>With our AI-driven dispatch and logistics system, we ensure the fastest arrival times for both cars and food, guaranteed.</p>
-                </FeatureCard>
-            </WhyUsSection>
+      <Container>
+        {/* SECTION 1: TRANSPORT */}
+        <SectionTitle>Seamless <span>Mobility</span></SectionTitle>
+        <ServiceGrid>
+          <ServiceCard color="#ff6347">
+            <span className="icon">🚗</span>
+            <h3>Upfront Pricing</h3>
+            <p>Know your fare before you book. No hidden costs, no surprises, just reliable transport across the city.</p>
+          </ServiceCard>
+          <ServiceCard color="#ff6347">
+            <span className="icon">🛡️</span>
+            <h3>Safety First</h3>
+            <p>With SOS buttons, live trip sharing, and verified drivers, your safety is our top priority 24/7.</p>
+          </ServiceCard>
+          <ServiceCard color="#ff6347">
+            <span className="icon">💎</span>
+            <h3>Premium Fleet</h3>
+            <p>Choose from standard commutes to executive luxury rides for those special business meetings.</p>
+          </ServiceCard>
+        </ServiceGrid>
 
-            {/* 2. Visual Gallery Section */}
-            <GallerySection>
-                <h2>Our Services in Action</h2>
-                <PhotoGrid>
-                    {/* Destination Pictures */}
-                    <PhotoCard>
-                        <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=500&q=80" alt="Paris" />
-                        <div className="label">Dream Destinations</div>
-                    </PhotoCard>
-                    <PhotoCard>
-                        <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=500&q=80" alt="Mountain Travel" />
-                        <div className="label">Adventure Travels</div>
-                    </PhotoCard>
+        {/* SECTION 2: FOOD DELIVERY */}
+        <SectionTitle>Cravings <span>Delivered</span></SectionTitle>
+        <FeatureHighlight>
+          <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80" alt="Food Delivery" />
+          <div className="content">
+            <h3>Try every local cuisine</h3>
+            <p>
+              From the hidden gems of street food to Michelin-starred dining,
+              <b> All-Food</b> brings the city's best flavors straight to your door.
+              Track your order in real-time and enjoy contactless delivery every time.
+            </p>
+          </div>
+        </FeatureHighlight>
 
-                    {/* Food Pictures */}
-                    <PhotoCard>
-                        <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=500&q=80" alt="Pizza" />
-                        <div className="label">Delicious Food</div>
-                    </PhotoCard>
-                    <PhotoCard>
-                        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=500&q=80" alt="Gourmet Meal" />
-                        <div className="label">Fast Delivery</div>
-                    </PhotoCard>
+        {/* SECTION 3: TRAVEL GUIDANCE */}
+        <SectionTitle>Expert <span>Travel Guidance</span></SectionTitle>
+        <ServiceGrid>
+          <ServiceCard color="#4a90e2">
+            <span className="icon">🗺️</span>
+            <h3>Local Insights</h3>
+            <p>Discover top-rated landmarks and "locals-only" spots with our integrated travel guide and smart maps.</p>
+          </ServiceCard>
+          <ServiceCard color="#4a90e2">
+            <span className="icon">🎟️</span>
+            <h3>Smart Ticketing</h3>
+            <p>Skip the queues! Book tickets for museums, theme parks, and events directly within the All in One app.</p>
+          </ServiceCard>
+          <ServiceCard color="#4a90e2">
+            <span className="icon">✈️</span>
+            <h3>Travel Pass</h3>
+            <p>Unlock exclusive discounts on airport transfers and hotel stays with our All-Access Travel Pass.</p>
+          </ServiceCard>
+        </ServiceGrid>
 
-                    {/* Car Pictures */}
-                    <PhotoCard>
-                        <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=500&q=80" alt="Luxury Car" />
-                        <div className="label">Luxury Rides</div>
-                    </PhotoCard>
-                    <PhotoCard>
-                        <img src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=500&q=80" alt="City Drive" />
-                        <div className="label">City Commutes</div>
-                    </PhotoCard>
-                </PhotoGrid>
-            </GallerySection>
-        </PageWrapper>
-    );
+        {/* COMMITMENT SECTION */}
+        <div style={{ background: 'tomato', padding: '60px', borderRadius: '30px', textAlign: 'center', marginTop: '80px' }}>
+          <h2 style={{ color: 'white', marginBottom: '20px' }}>Ready to simplify your life?</h2>
+          <p style={{ color: 'white', opacity: '0.9', marginBottom: '30px' }}>Join millions of users who trust All in One for their daily needs.</p>
+          <button style={{
+            background: 'white', color: 'tomato', border: 'none',
+            padding: '15px 40px', borderRadius: '30px', fontWeight: 'bold', cursor: 'pointer'
+          }}>Download the App</button>
+        </div>
+
+      </Container>
+
+      <footer style={{ textAlign: 'center', padding: '60px 20px', color: '#555' }}>
+        <p>© 2010 - 2026 All in One Technologies. Empowering South East Asia.</p>
+      </footer>
+    </PageWrapper>
+  );
 }

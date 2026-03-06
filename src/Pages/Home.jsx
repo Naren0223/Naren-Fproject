@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import safetyimage from "../assets/Travel.jpg";
 import Trip from "../assets/trip.jpg";
+import heroBg from "../assets/background.jpg";
 
 const HomeWrapper = styled.div`
   background-color: #1a1a1a;
@@ -13,7 +14,7 @@ const HeroSection = styled.section`
   padding: 120px 20px;
   text-align: center;
   background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
-              url('https://images.unsplash.com/photo-1557683316-973673baf926?auto=format&fit=crop&w=1200&q=80');
+              url(${heroBg});
   background-size: cover;
   background-position: center;
 
