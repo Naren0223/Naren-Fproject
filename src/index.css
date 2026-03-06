@@ -1,0 +1,28 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  /* REMOVED height: 100vh and overflow: hidden */
+  background-color: #1a1a1a;
+  color: white;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+body {
+  /* REMOVED display: flex and place-items: center */
+  overflow-x: hidden;
+  overflow-y: auto;
+  /* Explicitly allow vertical scrolling */
+}
+
+#root {
+  width: 100%;
+}
+
+/* Ensure Pacifico font is available for your logo */
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
