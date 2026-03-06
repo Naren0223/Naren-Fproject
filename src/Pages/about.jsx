@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import heroBg from "../assets/Food.jpg";
+
 
 // --- Styled Components ---
 
@@ -19,7 +21,7 @@ const HeroSection = styled.section`
   text-align: center;
   padding: 100px 20px;
   background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), 
-              url('https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1200&q=80');
+              url(${heroBg});
   background-size: cover;
   background-position: center;
   h1 { font-size: 3.5rem; color: tomato; margin-bottom: 20px; font-family: 'Pacifico', cursive; }
