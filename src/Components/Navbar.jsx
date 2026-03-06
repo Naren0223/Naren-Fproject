@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled, { css } from "styled-components";
-import { Link, useLocation } from "react-router-dom"; // Added useLocation
+import { Link, useLocation } from "react-router-dom";
 
 // --- Styled Components ---
 
@@ -32,7 +32,6 @@ const MenuIcon = styled.div`
   user-select: none;
 `;
 
-// Shared styles for both the Link version and the Static version of the logo
 const logoStyles = css`
   font-family: 'Pacifico', cursive;
   font-size: 26px;
@@ -53,7 +52,7 @@ const LogoLink = styled(Link)`
 
 const LogoStatic = styled.div`
   ${logoStyles}
-  cursor: default; /* Shows it is not a button */
+  cursor: default;
 `;
 
 const DropdownMenu = styled.div`
@@ -84,22 +83,73 @@ const RightSection = styled.div`
   a { color: white; text-decoration: none; font-weight: 500; }
 `;
 
+// --- NEW MODAL STYLES ---
+const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+`;
+
+const ModalContent = styled.div`
+  background: #252525;
+  padding: 30px;
+  border-radius: 15px;
+  width: 320px;
+  text-align: center;
+  color: white;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+`;
+
+const StyledInput = styled.input`
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 5px;
+  border: 1px solid #444;
+  background: #111;
+  color: white;
+`;
+
+const SubmitBtn = styled.button`
+  width: 100%;
+  padding: 10px;
+  background: tomato;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+`;
+
 // --- Component Logic ---
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const location = useLocation(); // Get the current path
+  const [showModal, setShowModal] = useState(false); // Modal visibility
+  const [isLogin, setIsLogin] = useState(true); // Toggle Login/Register
 
-  // Check if we are currently on the About page
+  const location = useLocation();
   const isAboutPage = location.pathname === "/about";
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    alert(isLogin ? "Connecting to Java Backend for Login..." : "Connecting to Java Backend for Registration...");
+    // Future step: add fetch() to your Java server here
+  };
 
   return (
     <>
       <Nav>
         <LeftSection>
           <MenuIcon onClick={() => setIsMenuOpen(!isMenuOpen)}>☰</MenuIcon>
-
-          {/* Conditional Rendering: Show Static text on About page, Link everywhere else */}
           {isAboutPage ? (
             <LogoStatic>All in one</LogoStatic>
           ) : (
@@ -116,16 +166,41 @@ export default function Navbar() {
 
         <RightSection>
           <Link to="/">Home</Link>
-          <Link to="/menu">Menu</Link>
-          <button style={{
-            background: 'white', color: 'tomato', border: 'none',
-            borderRadius: '20px', padding: '8px 18px', fontWeight: 'bold', cursor: 'pointer'
-          }}>
+          {/*<Link to="/menu">Menu</Link>*/}
+          {/* TRIGGER MODAL HERE */}
+          <button
+            onClick={() => setShowModal(true)}
+            style={{
+              background: 'white', color: 'tomato', border: 'none',
+              borderRadius: '20px', padding: '8px 18px', fontWeight: 'bold', cursor: 'pointer'
+            }}
+          >
             Login
           </button>
         </RightSection>
       </Nav>
       <div style={{ height: "64px" }}></div>
+
+      {/* LOGIN/REGISTER MODAL */}
+      {showModal && (
+        <ModalOverlay onClick={() => setShowModal(false)}>
+          <ModalContent onClick={(e) => e.stopPropagation()}>
+            <h3>{isLogin ? "Sign In" : "Register"}</h3>
+            <form onSubmit={handleFormSubmit}>
+              {!isLogin && <StyledInput type="text" placeholder="Full Name" required />}
+              <StyledInput type="email" placeholder="Email" required />
+              <StyledInput type="password" placeholder="Password" required />
+              <SubmitBtn type="submit">{isLogin ? "Login" : "Join Now"}</SubmitBtn>
+            </form>
+            <p
+              onClick={() => setIsLogin(!isLogin)}
+              style={{ fontSize: "12px", marginTop: "15px", cursor: "pointer", color: "tomato" }}
+            >
+              {isLogin ? "New user? Create account" : "Have an account? Login"}
+            </p>
+          </ModalContent>
+        </ModalOverlay>
+      )}
     </>
   );
 }

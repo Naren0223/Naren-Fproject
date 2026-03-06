@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./Components/Navbar";
 import Home from "./Pages/Home";
 import Menu from "./Pages/Menu";
-import About from "./Pages/About"; // Ensure capitalization matches your filename
+import About from "./Pages/about"; // Ensure capitalization matches your filename
 import styled from "styled-components";
 
 const AppWrapper = styled.div`
